@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  consumer:
+    build: ./consumer
+    container_name: kafka_consumer
+    ports: ['5000:5000']
+    volumes: ['./consumer:/usr/app']
+    command: ["tail", "-f", "/dev/null"]
+
+  producer:
+    build: ./producer
+    container_name: kafka_producer
+    ports: ['5050:5050']
+    volumes: ['./producer:/usr/app']
+    command: ["tail", "-f", "/dev/null"]
+
+networks:
+  default:
+    # kafka-network to enable communication between the Kafka cluster and the apps:
+    name: flasknetwork 
